@@ -17,6 +17,9 @@ class Ingestor(IngestorInterface):
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
         """Parse files."""
-        for ingestor in cls.ingestors:
-            if ingestor.can_ingest(path):
-                return ingestor.parse(path)
+        try:
+            for ingestor in cls.ingestors:
+                if ingestor.can_ingest(path):
+                    return ingestor.parse(path)
+        except Exception:
+            raise Exception('No Ingestor for file type found.')
