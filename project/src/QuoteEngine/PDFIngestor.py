@@ -1,4 +1,4 @@
-
+"""PDF file Ingestor."""
 from typing import List
 import subprocess
 import random
@@ -9,10 +9,13 @@ from .quote import QuoteModel
 
 
 class PDFIngestor(IngestorInterface):
+    """PDF Ingestor class."""
+
     allowed_extensions = ['pdf']
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Parse PDF files."""
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 
