@@ -14,14 +14,6 @@ class TXTIngestor(IngestorInterface):
     def parse(cls, path: str) -> List[QuoteModel]:
         """Parse TXT files."""
         if not cls.can_ingest(path):
-            raise Exception('cannot ingest exception')
-
-        quotes = []
-
-        with open(path, 'r') as f:
-            lines = f.readlines()
-            for line in lines:
-                row: list[str] = line.split(' - ')
-                new_quote = QuoteModel(row[0], row[1])
-                quotes.append(new_quote)
-        return quotes
+            raise ValueError(f"File Type not supported for {path}")
+        lines = open(path, 'r').readlines()
+        return [QuoteModel(body=cls.text_only(each_line.split("-")[0]), author=cls.text_only(each_line.split("-")[1])) for each_line in lines if cls.text_only(each_line)]

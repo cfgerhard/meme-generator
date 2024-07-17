@@ -2,7 +2,7 @@
 from PIL import Image, ImageDraw, ImageFont
 
 
-class Meme():
+class Meme:
     """Class for memes."""
 
     def __init__(self, img, quote):
@@ -10,7 +10,8 @@ class Meme():
         self.quote = quote
         self.img = img
 
-    def make_meme(self, img_path, text, author, width=500) -> str:
+    @staticmethod
+    def make_meme(img_path, text, author, width=500) -> str:
         """Make meme."""
         outpath = './out/' + img_path.split('/')[-1]
         img = Image.open(img_path)

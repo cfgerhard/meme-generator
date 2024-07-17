@@ -3,8 +3,8 @@
 from .quote import QuoteModel
 from .Ingestor import IngestorInterface
 from .Ingestor import Ingestor
-from .Ingestor import CSVIngestor
-from .Ingestor import DocxIngestor
-from .Ingestor import PDFIngestor
-from .Ingestor import TXTIngestor
+from .CSVIngestor import CSVIngestor
+from .DocxIngestor import DocxIngestor
+from .PDFIngestor import PDFIngestor
+from .TXTIngestor import TXTIngestor
 

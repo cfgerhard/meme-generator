@@ -1,11 +1,11 @@
 """PDF file Ingestor."""
 from typing import List
 import subprocess
-import random
-import os
+import tempfile
 
 from .IngestorInterface import IngestorInterface
 from .quote import QuoteModel
+from .TXTIngestor import TXTIngestor
 
 
 class PDFIngestor(IngestorInterface):
@@ -19,15 +19,9 @@ class PDFIngestor(IngestorInterface):
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 
-        tmp = f'./tmp/{random.randint(0, 1000000)}.txt'
-        subprocess.call(['pdftotext', path, tmp])
+        tmp = tempfile.NamedTemporaryFile(suffix='.txt')
+        sub_p = subprocess.run(['pdftotext', path, tmp.name], check=True)
 
-        file_ref = open(tmp, 'r')
-        quotes = []
-        for line in file_ref.readlines():
-            parse = line.split(' - ')
-            new_quote = QuoteModel(parse[0], parse[1])
-            quotes.append(new_quote)
-        file_ref.close()
-        os.remove(tmp)
-        return quotes
+        if sub_p.returncode:
+            raise RuntimeError("Subprocess 'pdftotext' did not return successfully.")
+        return TXTIngestor.parse(tmp.name)

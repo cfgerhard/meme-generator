@@ -3,23 +3,28 @@ from typing import List
 
 from .IngestorInterface import IngestorInterface
 from .quote import QuoteModel
-from .DocxIngestor import DocxIngestor
-from .CSVIngestor import CSVIngestor
-from .PDFIngestor import PDFIngestor
-from .TXTIngestor import TXTIngestor
 
 
 class Ingestor(IngestorInterface):
     """Ingestor class."""
 
-    ingestors = [DocxIngestor, CSVIngestor, PDFIngestor, TXTIngestor]
+
+
+    @classmethod
+    def can_ingest(cls, path: str) -> bool:
+        """Return a bool if the parent class has support for file extension in a given path."""
+        return cls.file_extension(path) in cls.__base__.extension_support()
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
         """Parse files."""
-        try:
-            for ingestor in cls.ingestors:
-                if ingestor.can_ingest(path):
-                    return ingestor.parse(path)
-        except Exception:
-            raise Exception('No Ingestor for file type found.')
+
+        extension = cls.file_extension(path)
+        base = cls.__base__
+
+        if not cls.can_ingest(path):
+            raise ValueError(f'Unsupported file extension "{extension}" from {path}. '
+                             f'Supported types are -> {base.extension_support()}')
+
+        parser = next((c for c in base.__subclasses__() if extension in c.extensions), None)
+        return parser.parse(path)
