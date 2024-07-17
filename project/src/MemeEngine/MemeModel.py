@@ -1,9 +1,8 @@
 """Model for Memes."""
-from abc import ABC, abstractmethod
 from PIL import Image, ImageDraw, ImageFont
 
 
-class Meme(ABC):
+class Meme():
     """Class for memes."""
 
     def __init__(self, img, quote):
@@ -11,14 +10,13 @@ class Meme(ABC):
         self.quote = quote
         self.img = img
 
-    @abstractmethod
     def make_meme(self, img_path, text, author, width=500) -> str:
         """Make meme."""
         outpath = './out/' + img_path.split('/')[-1]
         img = Image.open(img_path)
         ratio = width / float(img.size[0])
         height = int(ratio * float(img.size[1]))
-        img = img.resize((width, height), Image.NEAREST)
+        img = img.resize((width, height))
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
         message = f"{text} - {author}"

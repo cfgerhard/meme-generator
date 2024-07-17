@@ -11,7 +11,7 @@ from .quote import QuoteModel
 class PDFIngestor(IngestorInterface):
     """PDF Ingestor class."""
 
-    allowed_extensions = ['pdf']
+    extensions = ['pdf']
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:

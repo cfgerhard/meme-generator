@@ -8,7 +8,7 @@ from .quote import QuoteModel
 class TXTIngestor(IngestorInterface):
     """TXT file ingestor class."""
 
-    allowed_extensions = ['txt']
+    extensions = ['txt']
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
@@ -21,7 +21,7 @@ class TXTIngestor(IngestorInterface):
         with open(path, 'r') as f:
             lines = f.readlines()
             for line in lines:
-                row = line.split(' - ')
+                row: list[str] = line.split(' - ')
                 new_quote = QuoteModel(row[0], row[1])
                 quotes.append(new_quote)
         return quotes

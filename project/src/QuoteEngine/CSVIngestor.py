@@ -9,7 +9,7 @@ from .quote import QuoteModel
 class CSVIngestor(IngestorInterface):
     """CSV file Ingestor Class."""
 
-    allowed_extensions = ['csv']
+    extensions = ['csv']
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
