@@ -45,12 +45,7 @@ def meme_rand():
     """Generate a random meme."""
     img = random.choice(imgs)
     quote = random.choice(quotes)
-    print(quote)
     path = Meme.make_meme(img, quote.body, quote.author)
-    print(path)
-    print(os.listdir('./static'))
-    while path not in os.listdir('./static'):
-        sleep(1)
     return render_template('meme.html', path=path)
 
 
