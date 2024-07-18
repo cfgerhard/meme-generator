@@ -23,5 +23,6 @@ class PDFIngestor(IngestorInterface):
         sub_p = subprocess.run(['pdftotext', path, tmp.name], check=True)
 
         if sub_p.returncode:
-            raise RuntimeError("Subprocess 'pdftotext' did not return successfully.")
+            raise RuntimeError("Subprocess 'pdftotext' did "
+                               "not return successfully.")
         return TXTIngestor.parse(tmp.name)

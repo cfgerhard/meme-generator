@@ -7,7 +7,6 @@ from .quote import QuoteModel
 import re
 
 
-
 class IngestorInterface(ABC):
     """Ingestor Interface."""
 
@@ -31,12 +30,15 @@ class IngestorInterface(ABC):
 
     @classmethod
     def extension_support(cls):
-        """Return a list of all supported parse extension formats from subclasses."""
+        """Support Function.
+
+        Return a list of all supported parse extension formats from subclasses.
+        """
         return list(chain(*[c.extensions for c in cls.__subclasses__()]))
 
     @classmethod
     def text_only(cls, text):
         """Return text free of unwanted and non-printable characters."""
         unwanted_chars = r"[()\"#/@;<>{}`+=~|.!?,]"
-        return ''.join(filter(str.isprintable, re.sub(unwanted_chars, "", text).strip()))
-# fertig
+        return ''.join(filter(str.isprintable, re.sub(unwanted_chars,
+                                                      "", text).strip()))

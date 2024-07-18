@@ -16,4 +16,6 @@ class TXTIngestor(IngestorInterface):
         if not cls.can_ingest(path):
             raise ValueError(f"File Type not supported for {path}")
         lines = open(path, 'r').readlines()
-        return [QuoteModel(body=cls.text_only(each_line.split("-")[0]), author=cls.text_only(each_line.split("-")[1])) for each_line in lines if cls.text_only(each_line)]
+        return [QuoteModel(body=cls.text_only(each_line.split("-")[0]),
+                           author=cls.text_only(each_line.split("-")[1]))
+                for each_line in lines if cls.text_only(each_line)]

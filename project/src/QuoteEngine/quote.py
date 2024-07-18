@@ -12,6 +12,3 @@ class QuoteModel:
     def __str__(self):
         """Quote Model String Representation."""
         return f'"{self.body}" - {self.author}'
-
-
-# fertig
