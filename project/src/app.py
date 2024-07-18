@@ -6,7 +6,6 @@ from flask import Flask, render_template, abort, request
 from QuoteEngine import Ingestor
 from MemeEngine import Meme
 from itertools import chain
-from time import sleep
 
 app = Flask(__name__,  static_folder='./static')
 
