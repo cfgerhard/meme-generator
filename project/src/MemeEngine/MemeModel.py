@@ -3,7 +3,9 @@ from PIL import Image, ImageDraw, ImageFont
 import tempfile
 
 
-tempfile.tempdir='./static'
+tempfile.tempdir = './static'
+
+
 class Meme:
     """Class for memes."""
 
@@ -15,7 +17,8 @@ class Meme:
     @staticmethod
     def make_meme(img_path, text, author, width=500) -> str:
         """Make meme."""
-        outpath = tempfile.NamedTemporaryFile(mode='w+b', delete=False, suffix='.jpg')
+        outpath = tempfile.NamedTemporaryFile(mode='w+b',
+                                              delete=False, suffix='.jpg')
         img = Image.open(img_path)
         ratio = width / float(img.size[0])
         height = int(ratio * float(img.size[1]))
