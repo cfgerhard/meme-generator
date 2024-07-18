@@ -5,8 +5,9 @@ from flask import Flask, render_template, abort, request
 from QuoteEngine import Ingestor
 from MemeEngine import Meme
 from itertools import chain
+from time import sleep
 
-app = Flask(__name__)
+app = Flask(__name__,  static_folder='./static')
 
 
 def download_file(url):
@@ -45,6 +46,10 @@ def meme_rand():
     quote = random.choice(quotes)
     print(quote)
     path = Meme.make_meme(img, quote.body, quote.author)
+    print(path)
+    print(os.listdir('./static'))
+    while path not in os.listdir('./static'):
+        sleep(1)
     return render_template('meme.html', path=path)
 
 

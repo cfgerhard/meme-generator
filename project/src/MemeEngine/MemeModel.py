@@ -1,7 +1,9 @@
 """Model for Memes."""
 from PIL import Image, ImageDraw, ImageFont
+import tempfile
 
 
+tempfile.tempdir='./static'
 class Meme:
     """Class for memes."""
 
@@ -13,7 +15,7 @@ class Meme:
     @staticmethod
     def make_meme(img_path, text, author, width=500) -> str:
         """Make meme."""
-        outpath = './out/' + img_path.split('/')[-1]
+        outpath = tempfile.NamedTemporaryFile(mode='w+b', delete=False, suffix='.jpg')
         img = Image.open(img_path)
         ratio = width / float(img.size[0])
         height = int(ratio * float(img.size[1]))
@@ -23,7 +25,7 @@ class Meme:
         message = f"{text} - {author}"
         draw.text((10, 30), message, font=font, fill='red')
         img.save(outpath)
-        return outpath
+        return str(outpath.name).split('/')[-1]
 
     def __repr__(self):
         """Represent Meme."""
