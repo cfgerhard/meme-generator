@@ -1,3 +1,4 @@
+"""The file, that starts the app."""
 import random
 import os
 import requests
@@ -11,6 +12,7 @@ app = Flask(__name__,  static_folder='./static')
 
 
 def download_file(url):
+    """Download custom file."""
     local_filename = "./tmp/" + url.split('/')[-1]
     # NOTE the stream=True parameter below
     with requests.get(url, stream=True) as r:
@@ -22,15 +24,15 @@ def download_file(url):
 
 
 def setup():
-    """ Load all resources """
-
+    """Load all resources."""
     quote_files = ['./_data/DogQuotes/DogQuotesTXT.txt',
                    './_data/DogQuotes/DogQuotesDOCX.docx',
                    './_data/DogQuotes/DogQuotesPDF.pdf',
                    './_data/DogQuotes/DogQuotesCSV.csv']
     quotes = list(chain(*[Ingestor.parse(f) for f in quote_files]))
     images_path = "./_data/photos/dog/"
-    imgs = [f"{images_path}{f}" for f in os.listdir(images_path) if f.endswith(".jpg")]
+    imgs = [f"{images_path}{f}" for f in os.listdir(images_path)
+            if f.endswith(".jpg")]
 
     return quotes, imgs
 
@@ -40,8 +42,7 @@ quotes, imgs = setup()
 
 @app.route('/')
 def meme_rand():
-    """ Generate a random meme """
-
+    """Generate a random meme."""
     img = random.choice(imgs)
     quote = random.choice(quotes)
     print(quote)
@@ -55,16 +56,16 @@ def meme_rand():
 
 @app.route('/create', methods=['GET'])
 def meme_form():
-    """ User input for meme information """
+    """User input for meme information."""
     return render_template('meme_form.html')
 
 
 @app.route('/create', methods=['POST'])
 def meme_post():
-    """ Create a user defined meme """
-
+    """Create a user defined meme."""
     user_img = download_file(request.form.get('image_url'))
-    path = Meme.make_meme(user_img, request.form.get('body'), request.form.get('author'))
+    path = Meme.make_meme(user_img, request.form.get('body'),
+                          request.form.get('author'))
     os.remove(user_img)
     return render_template('meme.html', path=path)
 
