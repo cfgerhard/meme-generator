@@ -54,6 +54,7 @@ if __name__ == "__main__":
                         help='Quote author to add to the image')
     args = parser.parse_args()
     try:
+        print(args.path, args.body, args.author)
         print(generate_meme(args.path, args.body, args.author))
     except Exception as e:
         print("Following error occurred: " + str(e))
