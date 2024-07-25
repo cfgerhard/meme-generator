@@ -1,14 +1,13 @@
 import os
 import random
 from QuoteEngine import Ingestor
-import MemeEngine
+from QuoteEngine import quote as uote
+from MemeEngine import Meme
 import argparse
 
 
 def generate_meme(path=None, body=None, author=None):
     """Generate a meme given an path and a quote."""
-    img = path
-    quote = body + " - " + author
 
     if path is None:
         images = "./_data/photos/dog/"
@@ -33,15 +32,13 @@ def generate_meme(path=None, body=None, author=None):
     else:
         if author is None:
             raise Exception('Author Required if Body is Used')
-        quote = QuoteModel(body, author)
+        quote = uote.QuoteModel(body, author)
 
-    meme = MemeEngine('./tmp')
-    path = meme.make_meme(img, quote.body, quote.author)
+    path = Meme.make_meme(img, quote.body, quote.author)
     return path
 
 
 if __name__ == "__main__":
-    # @TODO Use ArgumentParser to parse the following CLI arguments
     # path - path to an image file
     # body - quote body to add to the image
     # author - quote author to add to the image
@@ -54,7 +51,6 @@ if __name__ == "__main__":
                         help='Quote author to add to the image')
     args = parser.parse_args()
     try:
-        print(args.path, args.body, args.author)
-        print(generate_meme(args.path, args.body, args.author))
+        generate_meme(args.path, args.body, args.author)
     except Exception as e:
         print("Following error occurred: " + str(e))
