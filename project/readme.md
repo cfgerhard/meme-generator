@@ -66,61 +66,85 @@ Christian
 
 ## Technical Specifications
 
-
+### Projects directory tree
 
 ```
 .(projectroot)
+├── docs
+│   └── startpage.png
 ├── readme.md
-├── src
-│   ├── MemeEngine
-│   │   ├── MemeModel.py
-│   │   └── __init__.py
-│   ├── QuoteEngine
-│   │   ├── CSVIngestor.py
-│   │   ├── DocxIngestor.py
-│   │   ├── Ingestor.py
-│   │   ├── IngestorInterface.py
-│   │   ├── PDFIngestor.py
-│   │   ├── TXTIngestor.py
-│   │   ├── __init__.py
-│   │   └── quote.py
-│   ├── _data
-│   │   ├── DogQuotes
-│   │   │   ├── DogQuotesCSV.csv
-│   │   │   ├── DogQuotesDOCX.docx
-│   │   │   ├── DogQuotesPDF.pdf
-│   │   │   └── DogQuotesTXT.txt
-│   │   ├── SimpleLines
-│   │   │   ├── SimpleLines.csv
-│   │   │   ├── SimpleLines.docx
-│   │   │   ├── SimpleLines.pdf
-│   │   │   └── SimpleLines.txt
-│   │   └── photos
-│   │       └── dog
-│   │           ├── xander_1.jpg
-│   │           ├── xander_2.jpg
-│   │           ├── xander_3.jpg
-│   │           └── xander_4.jpg
-│   ├── app.py
-│   ├── fonts
-│   │   └── LilitaOne-Regular.ttf
-│   ├── meme.py
-│   ├── requirements.txt
-│   ├── static
-│   │   ├── tmp2tag2y4i.jpg
-│   │   ├── tmp35qml5bu.jpg
-│   │   ├── tmp_pbwq0a2.jpg
-│   │   ├── tmpavh3vg4k.jpg
-│   │   ├── tmpgoexqrtu.jpg
-│   │   ├── tmpi0lshvss.jpg
-│   │   ├── tmpjfbwwurq.jpg
-│   │   ├── tmpn3ok5t9x.jpg
-│   │   ├── tmps91z4t0g.jpg
-│   │   └── tmpsdr8bumt.jpg
-│   ├── templates
-│   │   ├── base.html
-│   │   ├── meme.html
-│   │   └── meme_form.html
-│   └── tmp
-└── tree.txt
+└── src
+    ├── MemeEngine
+    │   ├── MemeModel.py
+    │   ├── __init__.py
+    ├── QuoteEngine
+    │   ├── CSVIngestor.py
+    │   ├── DocxIngestor.py
+    │   ├── Ingestor.py
+    │   ├── IngestorInterface.py
+    │   ├── PDFIngestor.py
+    │   ├── TXTIngestor.py
+    │   ├── __init__.py
+    │   └── quote.py
+    ├── _data
+    │   ├── DogQuotes
+    │   │   ├── DogQuotesCSV.csv
+    │   │   ├── DogQuotesDOCX.docx
+    │   │   ├── DogQuotesPDF.pdf
+    │   │   └── DogQuotesTXT.txt
+    │   ├── SimpleLines
+    │   │   ├── SimpleLines.csv
+    │   │   ├── SimpleLines.docx
+    │   │   ├── SimpleLines.pdf
+    │   │   └── SimpleLines.txt
+    │   └── photos
+    │       └── dog
+    │           ├── xander_1.jpg
+    │           ├── xander_2.jpg
+    │           ├── xander_3.jpg
+    │           └── xander_4.jpg
+    ├── app.py
+    ├── fonts
+    │   └── LilitaOne-Regular.ttf
+    ├── meme.py
+    ├── requirements.txt
+    ├── static
+    ├── templates
+    │   ├── base.html
+    │   ├── meme.html
+    │   └── meme_form.html
+    └── tmp
 ```
+
+_docs:_\
+&nbsp;&nbsp;&nbsp;&nbsp;files related to this document
+
+_src/MemeEngine:_\
+&nbsp;&nbsp;&nbsp;&nbsp;code that creates Memes
+
+_src/QuoteEngine:_\
+&nbsp;&nbsp;&nbsp;&nbsp;code that ingests the quotes provided in files from __data/DogQuotes_.
+
+_src/\_data:_\
+&nbsp;&nbsp;&nbsp;&nbsp;Sample Data (Quotes and Images) used to create random Memes
+
+_src/app.py:_\
+&nbsp;&nbsp;&nbsp;&nbsp;Web Server script (see Web-based usage)
+
+_src/fonts:_\
+&nbsp;&nbsp;&nbsp;&nbsp;Font files for quotes in memes
+
+_src/meme.py:_\
+&nbsp;&nbsp;&nbsp;&nbsp;Script for local Meme creation (see CLI usage)
+
+_src/requirements.txt:_\
+&nbsp;&nbsp;&nbsp;&nbsp;File for module installation
+
+_src/static:_\
+&nbsp;&nbsp;&nbsp;&nbsp;Folder where created Memes are located
+
+_src/templates:_\
+&nbsp;&nbsp;&nbsp;&nbsp;Template files for the flask server app
+
+_src/tmp:_\
+&nbsp;&nbsp;&nbsp;&nbsp;Temporary download folder used in the web app.
