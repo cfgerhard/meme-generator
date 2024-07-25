@@ -33,8 +33,8 @@ def generate_meme(path=None, body=None, author=None):
         if author is None:
             raise Exception('Author Required if Body is Used')
         quote = uote.QuoteModel(body, author)
-
-    path = Meme.make_meme(img, quote.body, quote.author)
+    new_meme = Meme(output_dir='./static', img=img, quote=quote)
+    path = Meme.make_meme(self=new_meme, img_path=img, text=quote.body, author=quote.author)
     return path
 
 

@@ -6,6 +6,7 @@ from flask import Flask, render_template, abort, request
 from QuoteEngine import Ingestor
 from MemeEngine import Meme
 from itertools import chain
+import ExceptionClasses
 
 app = Flask(__name__,  static_folder='./static')
 
@@ -32,11 +33,10 @@ def setup():
     images_path = "./_data/photos/dog/"
     imgs = [f"{images_path}{f}" for f in os.listdir(images_path)
             if f.endswith(".jpg")]
-
     return quotes, imgs
 
 
-quotes, imgs = setup()
+quotes, imgs= setup()
 
 
 @app.route('/')
@@ -44,7 +44,8 @@ def meme_rand():
     """Generate a random meme."""
     img = random.choice(imgs)
     quote = random.choice(quotes)
-    path = Meme.make_meme(img, quote.body, quote.author)
+    app_meme = Meme(output_dir='./static', img=img, quote=quote)
+    path = Meme.make_meme(self=app_meme, img_path=img, text=quote.body, author=quote.author)
     return render_template('meme.html', path=str(path).split('/')[-1])
 
 
@@ -57,9 +58,21 @@ def meme_form():
 @app.route('/create', methods=['POST'])
 def meme_post():
     """Create a user defined meme."""
-    user_img = download_file(request.form.get('image_url'))
-    path = Meme.make_meme(user_img, request.form.get('body'),
-                          request.form.get('author'))
+    try:
+        user_img = download_file(request.form.get('image_url'))
+    except (requests.exceptions.ConnectionError, requests.exceptions.HTTPError):
+        return render_template('meme_error.html', message="This seems to be an invalid URL, please check and try again")
+    try:
+        is_good_ext = str(user_img).split('.')[-1] in ['jpg', 'png', 'jpeg']
+        if not is_good_ext: raise ExceptionClasses.WrongExtensionError("This file type is not supported, please find"
+                                                                       " another file to upload")
+    except ExceptionClasses.WrongExtensionError:
+        return render_template('meme_error.html', message="This file type is not supported, please find another "
+                                                          "file to upload")
+
+    app_meme = Meme(output_dir='./static', img=user_img, quote=None)
+    path = Meme.make_meme(self=app_meme, img_path=user_img, text=request.form.get('body'),
+                          author=request.form.get('author'))
     print(path)
     os.remove(user_img)
     return render_template('meme.html', path=str(path).split('/')[-1])
