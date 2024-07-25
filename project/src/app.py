@@ -45,7 +45,7 @@ def meme_rand():
     img = random.choice(imgs)
     quote = random.choice(quotes)
     path = Meme.make_meme(img, quote.body, quote.author)
-    return render_template('meme.html', path=path)
+    return render_template('meme.html', path=str(path).split('/')[-1])
 
 
 @app.route('/create', methods=['GET'])
@@ -60,8 +60,9 @@ def meme_post():
     user_img = download_file(request.form.get('image_url'))
     path = Meme.make_meme(user_img, request.form.get('body'),
                           request.form.get('author'))
+    print(path)
     os.remove(user_img)
-    return render_template('meme.html', path=path)
+    return render_template('meme.html', path=str(path).split('/')[-1])
 
 
 if __name__ == "__main__":

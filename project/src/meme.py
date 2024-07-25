@@ -17,7 +17,7 @@ def generate_meme(path=None, body=None, author=None):
 
         img = random.choice(imgs)
     else:
-        img = path[0]
+        img = path
 
     if body is None:
         quote_files = ['./_data/DogQuotes/DogQuotesTXT.txt',
@@ -51,6 +51,7 @@ if __name__ == "__main__":
                         help='Quote author to add to the image')
     args = parser.parse_args()
     try:
-        generate_meme(args.path, args.body, args.author)
+        print(generate_meme(args.path, args.body, args.author))
     except Exception as e:
         print("Following error occurred: " + str(e))
+        print(Exception)

@@ -28,7 +28,7 @@ class Meme:
         message = f"{text} - {author}"
         draw.text((10, 30), message, font=font, fill='red')
         img.save(outpath)
-        return str(outpath.name).split('/')[-1]
+        return str(outpath.name)
 
     def __repr__(self):
         """Represent Meme."""
