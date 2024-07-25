@@ -74,9 +74,12 @@ Christian
 │   └── startpage.png
 ├── readme.md
 └── src
+    ├── ExceptionClasses
+    │   ├── __init__.py
+    │   └── exceptions.py
     ├── MemeEngine
     │   ├── MemeModel.py
-    │   ├── __init__.py
+    │   └── __init__.py
     ├── QuoteEngine
     │   ├── CSVIngestor.py
     │   ├── DocxIngestor.py
@@ -112,12 +115,16 @@ Christian
     ├── templates
     │   ├── base.html
     │   ├── meme.html
+    │   ├── meme_error.html
     │   └── meme_form.html
     └── tmp
 ```
 
 _docs:_\
 &nbsp;&nbsp;&nbsp;&nbsp;files related to this document
+
+_src/Exceptionclasses:_\
+&nbsp;&nbsp;&nbsp;&nbsp;custom Exceptions
 
 _src/MemeEngine:_\
 &nbsp;&nbsp;&nbsp;&nbsp;code that creates Memes

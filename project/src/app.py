@@ -67,6 +67,7 @@ def meme_post():
         if not is_good_ext: raise ExceptionClasses.WrongExtensionError("This file type is not supported, please find"
                                                                        " another file to upload")
     except ExceptionClasses.WrongExtensionError:
+        os.remove(user_img)
         return render_template('meme_error.html', message="This file type is not supported, please find another "
                                                           "file to upload")
 
