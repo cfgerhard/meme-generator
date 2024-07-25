@@ -55,13 +55,13 @@ and displayed in the browser.\
 Alternatively you can provide your own data by calling the Creator form using the "Creator" button. Here enter data such
 as the one below and push the "Create Meme!" button. The engine will create a Meme with your provided data. 
 
-Image URL
+**Image URL**\
 https://as2.ftcdn.net/v2/jpg/08/32/53/89/1000_F_832538986_Mp9sgjpmk9DLQzJR9SZKI9QinSQmgA6h.jpg
 
-Quote Body
+**Quote Body**\
 HotDogs are delicious
 
-Quote Author
+**Quote Author**\
 Christian
 
 ## Technical Specifications
